@@ -89,7 +89,7 @@ Sets the text color. It must be in one of these two formats:
  * `#abcdef12` with alpha specified in the last two digits
 
 
- Example:
+Example:
 
  ```CSS
 title { color: #0000ff; }    /* opaque blue       */
