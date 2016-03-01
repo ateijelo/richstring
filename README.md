@@ -15,9 +15,9 @@ To use RichString you will create an instance and pass it a set of CSS-looking r
 class MyMassiveViewController : UIViewController {
 
   let R = RichString(
-    "title { font-face: Helvetica; font-size: 15; }",
-    "subtitle { font-face: Helvetica; font-size: 13.5; }",
-    "b { font-face: Helvetica-Bold; }",
+    "title { font-name: Helvetica; font-size: 15; }",
+    "subtitle { font-name: Helvetica; font-size: 13.5; }",
+    "b { font-name: Helvetica-Bold; }",
   )
 
 }
@@ -44,30 +44,53 @@ There are no other kind of selectors, you can only use a simple tag name.
 When subscripting, you write something that resembles HTML, but is actually XML parsed by Apple's NSXMLParser. So, whitespace counts. The following (note the `\n` character):
 
 ```Swift
-  label.attributedText = R["<title>Hello</title>\n<subtitle>World</subtitle>"]
+label.attributedText = R["<title>Hello</title>\n<subtitle>World</subtitle>"]
 ```
 
 will be rendered as two lines.
 
+### Inheritance
 
-### Reference
+RichString uses a limited form of CSS-inspired inheritance. Simply put: every attribute is inherited from the parent element. If you specify no styles, RichString will start with `UIFont.systemFontOfSize(UIFont.systemFontSize())`.
+
+You can use the special tag `body` to give styles to all your strings, like this:
+
+```Swift
+let R = RichString("body { font-name: OpenSans; }")
+...
+label.attributeText = R["Hello, World!"]
+```
+
+### Attributes
 
 As of March 2016, RichString understand the following attributes:
 
-#### font-face
+#### font-name
 
 Selects the font face for the given rule. You must use the font's PostScript name. That's the name that has a hyphen in the middle. Check FontBook. Example:
 
 ```CSS
-  title { font-face: Helvetica-Bold; }
+  title { font-name: Helvetica-Bold; }
 ```
 
 #### font-size
 
-This is the size in points. It's a floating point value, with no units. Example:
+Sets the font size in points. It's a floating point value, with no units. Example:
 
 ```CSS
   title { font-size: 10.5; }
 ```
 
-####
+#### color
+
+Sets the text color. It must be in one of these two formats:
+
+ * `#abcdef` with alpha set to 1.0
+ * `#abcdef12` with alpha specified in the last two digits
+
+ Example:
+
+ ```CSS
+   title { color: #0000ff; }  // opaque blue
+   title { color: #00ff0080; }  // transparent green
+ ```
