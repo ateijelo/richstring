@@ -70,7 +70,7 @@ As of March 2016, RichString understand the following attributes:
 Selects the font face for the given rule. You must use the font's PostScript name. That's the name that has a hyphen in the middle. Check FontBook. Example:
 
 ```CSS
-  title { font-name: Helvetica-Bold; }
+title { font-name: Helvetica-Bold; }
 ```
 
 #### font-size
@@ -78,7 +78,7 @@ Selects the font face for the given rule. You must use the font's PostScript nam
 Sets the font size in points. It's a floating point value, with no units. Example:
 
 ```CSS
-  title { font-size: 10.5; }
+title { font-size: 10.5; }
 ```
 
 #### color
@@ -88,9 +88,39 @@ Sets the text color. It must be in one of these two formats:
  * `#abcdef` with alpha set to 1.0
  * `#abcdef12` with alpha specified in the last two digits
 
+
  Example:
 
  ```CSS
-   title { color: #0000ff; }  // opaque blue
-   title { color: #00ff0080; }  // transparent green
+title { color: #0000ff; }    /* opaque blue       */
+title { color: #00ff0080; }  /* transparent green */
  ```
+
+#### align, text-alignment, alignment
+
+All three names do the same. I kept forgetting which one I had used so I put them all in.
+This selects horizontal text alignment. Valid values are these:
+
+```CSS
+title { align: left; }       /* NSTextAlignment.Left       */
+title { align: center; }     /* NSTextAlignment.Center     */
+title { align: right; }      /* NSTextAlignment.Right      */
+title { align: justified; }  /* NSTextAlignment.Justified  */
+title { align: natural; }    /* NSTextAlignment.Natural    */
+```
+
+#### line-height
+
+Sets the line height multiplier. It translates to a `NSParagraphStyle.lineHeightMultiple`. It is a unit-less floating point value. Example:
+
+```CSS
+title { line-height: 0.9; }
+```
+
+#### baseline-offset
+
+Sets the text baseline offset. Positive is up, negative is down. It translates to `NSBaselineOffsetAttributeName`. It is a unit-less floating point value. Example:
+
+```CSS
+title { baseline-offset: -1.5; }
+```
